@@ -21,7 +21,7 @@ Once dependencies are install successfully run the following command from within
 Following the instructions within the terminal you should now be able to view the project by entering the following into your web browsers url bar.
 
 
-    $ 127.0.0.1:9393
+    127.0.0.1:9393
 
 ## Contributing
 
