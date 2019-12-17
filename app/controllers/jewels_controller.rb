@@ -10,7 +10,7 @@ class JewelsController < Sinatra::Base
   #index
   get "/jewels" do
     @session = session
-    # @jewels = Jewel. where Jewel.user_id == session[:user_id]
+    @jewels = Jewel.where(user_id: session[:user_id])
     if logged_in?(session)
       erb :jewels
     else
@@ -19,13 +19,13 @@ class JewelsController < Sinatra::Base
   end
 
   #new
-  get "jewels/new" do
+  get "/jewels/new" do
     erb :new
   end
 
   post "/jewels" do
     @jewel = Jewel.create(
-      type: params[:type],
+      name: params[:name],
       weight: params[:weight],
       colour: params[:colour],
       location_found: params[:location_found],
@@ -36,7 +36,7 @@ class JewelsController < Sinatra::Base
   end
 
   #show
-  get "./jewels/:id" do
+  get "/jewels/:id" do
     @jewel = Jewel.find_by_id(params[:id])
     erb :show
   end
@@ -47,9 +47,9 @@ class JewelsController < Sinatra::Base
     erb :edit
   end
 
-  patch "jewels/:id" do
+  patch "/jewels/:id" do
     @jewel = Jewel.find_by_id(params[:id])
-    @jewel.type = params[:type]
+    @jewel.name = params[:name]
     @jewel.weight = params[:weight]
     @jewel.colour = params[:colour]
     @jewel.location_found = params[:location_found]
@@ -59,7 +59,7 @@ class JewelsController < Sinatra::Base
   end
 
   #delete
-  delete "./jewels/:id" do
+  delete "/jewels/:id" do
     @jewel = Jewel.find_by_id(params[:id])
     @jewel.delete
     redirect to '/jewels'
