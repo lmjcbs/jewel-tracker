@@ -14,18 +14,18 @@ And then from within /jewel-tracker/ directory execute the following command to 
 
 ## Usage
 
-Once dependencies are install successfully run the following command to start the web server:
+Once dependencies are install successfully run the following command from within the project directory to start the web server:
 
     $ shotgun
 
 Following the instructions within the terminal you should now be able to view the project by entering the following into your web browsers url bar.
 
 
-    $ 127.0.0.1:9393
+    127.0.0.1:9393
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/lmjcbs/top_companies_CLI.
+Bug reports and pull requests are welcome on GitHub at https://github.com/lmjcbs/jewel-tracker.
 
 ## License
 
