@@ -1,0 +1,41 @@
+.jewel-container {
+  background: lightcyan;
+  border-radius: 25px;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  padding: 20px;
+  margin: 10px;
+}
+
+input[type="submit"] {
+  background: whitesmoke;
+  border-color: rgb(48, 176, 255);
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 15px;
+  font-size: 15px;
+  margin: 8px;
+  width: 150px;
+  height: 40px; 
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  font-size: 15px;
+}
+input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  font-size: 15px;
+}
+
+h4 {
+  margin: 15px;
+  font-size: 20px;
+}
