@@ -1,0 +1,10 @@
+<h2> <%= @jewel.type %> </h2>
+<h3> <%= @jewel.weight %> </h3>
+<h3> <%= @jewel.colour %> </h3>
+<h3> <%= @jewel.location_found %> </h3>
+<h3> <%= @jewel.value %> </h3>
+<a href="/jewels/<%= @jewel.id %>/edit"> Edit this jewel </a>
+<form method="post" action="/jewels/#{@Jewel.id}">
+  <input type="hidden" id="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Delete this Jewel">
+</form>
