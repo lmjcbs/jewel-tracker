@@ -9,9 +9,14 @@
     <br>
     <form method="POST" action="/signup">
       <label for="username">Username: </label>
-      <input type="text" name="username" id="username"><br />
+      <input type="text" name="username" id="username" required pattern="^[A-Za-z-0-9()]{3,12}$"
+      oninvalid="this.setCustomValidity('Please enter a valid username between 3 and 12 characters.')"
+      oninput="setCustomValidity('')"><br />
       <label for="password">Password: </label>
-      <input type="password" name="password" id="password"><br />
+      <input type="password" name="password" id="password" required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$"
+      oninvalid="this.setCustomValidity('Passwords must be at least 6 characters long and contain a number.')"
+      oninput="setCustomValidity('')"><br />
+      <br />
       <br>
       <input type="submit" value="Sign Up">
       <br>
