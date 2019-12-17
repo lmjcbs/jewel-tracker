@@ -14,7 +14,7 @@ And then from within /jewel-tracker/ directory execute the following command to 
 
 ## Usage
 
-Once dependencies are install successfully run the following command to start the web server:
+Once dependencies are install successfully run the following command from within the project directory to start the web server:
 
     $ shotgun
 
