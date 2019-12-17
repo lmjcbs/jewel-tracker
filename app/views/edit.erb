@@ -1,0 +1,16 @@
+<h2> Edit the details below </h2>
+
+<form method="post" action="/jewels/#{@jewel.id}">
+  <input type="hidden" id="hidden" name="_method" value="patch">
+  <label for="type">Type: </label>
+  <input type="text" id="type" name="type" value="#{@article.type}"><br />
+  <label for="weight">Weight: </label>
+  <input type="text" id="weight" name="weight" value="#{@article.weight}"><br />
+  <label for="colour">Colour: </label>
+  <input type="text" id="colour" name="colour" value="#{@article.colour}"><br />
+  <label for="location_found">Location Found: </label>
+  <input type="text" id="location_found" name="location_found" value="#{@article.location_found}"><br />
+  <label for="value">Value: </label>
+  <input type="text" id="value" name="value" value="#{@article.value}"><br />
+  <input type="submit" value="Save Changes">
+</form>
