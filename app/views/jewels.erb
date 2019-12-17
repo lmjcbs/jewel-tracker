@@ -1,17 +1,38 @@
 <% if logged_in?(@session) %>
-  <h1> Jewels Homepage </h1>
-  <h2> Welcome <%= current_user(@session).username %></h2>
-  <a href="/logout">Log Out</a>
-  <h3>You're now viewing your jewel collection.</h3>
 
-  <% @jewels.each do |jewel| %>
+  <h1> Jewels Dashboard </h1>
+  <h3> Welcome <%= current_user(@session).username %></h3>
+  <form method="get" action="/logout">
+  <input type="submit" value="Log out">
+</form>
+  <h3>You're now viewing your jewel collection.</h3>
+  <form method="get" action="/jewels/new">
+    <input type="submit" value="Add new entry">
+  </form>
+
+  <% if @jewels.size == 0 %>
+
     <div class="jewel-container">
-      <h2> <%= @jewel.type %> </h2>
-      <h3> <%= @jewel.location_found %> </h3>
-      <h3> <%= @jewel.value %> </h3>
-      <a href="/jewels/#{@jewel.id}> View this Jewel </a>
+      <p> You currently have no jewels collected </p>
     </div>
+
+  <% else %>
+
+    <% @jewels.each do |jewel| %>
+      <div class="jewel-container">
+        <h4> Name: <%= jewel.name %> </h4>
+        <h4> Location Found: <%= jewel.location_found %> </h4>
+        <h4> Colour: <%= jewel.colour %> </h4>
+        <h4> Weight: <%= jewel.weight %> </h4>
+        <h4> Value: £<%= jewel.value %> </h4>
+        <form method="get" action="/jewels/<%= jewel.id %>">
+          <input type="submit" value="View entry">
+        </form>
+      </div>
+    <% end %>
+
   <% end %>
+
 <% else %>
   <p>You are not currently signed in. Click<a href="./">here</a>to go back.</p>
 <% end %>
