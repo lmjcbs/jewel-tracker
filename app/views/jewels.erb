@@ -1,0 +1,17 @@
+<% if logged_in?(@session) %>
+  <h1> Jewels Homepage </h1>
+  <h2> Welcome <%= current_user(@session).username %></h2>
+  <a href="/logout">Log Out</a>
+  <h3>You're now viewing your jewel collection.</h3>
+
+  <% @jewels.each do |jewel| %>
+    <div class="jewel-container">
+      <h2> <%= @jewel.type %> </h2>
+      <h3> <%= @jewel.location_found %> </h3>
+      <h3> <%= @jewel.value %> </h3>
+      <a href="/jewels/#{@jewel.id}> View this Jewel </a>
+    </div>
+  <% end %>
+<% else %>
+  <p>You are not currently signed in. Click<a href="./">here</a>to go back.</p>
+<% end %>
