@@ -25,7 +25,7 @@ Following the instructions within the terminal you should now be able to view th
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/lmjcbs/top_companies_CLI.
+Bug reports and pull requests are welcome on GitHub at https://github.com/lmjcbs/jewel-tracker.
 
 ## License
 
