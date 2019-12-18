@@ -8,7 +8,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    erb :welcome
+    erb :welcome, locals: { failed_login: nil}
   end
 
   get "/error" do
@@ -25,7 +25,7 @@ class ApplicationController < Sinatra::Base
       session[:user_id] = user.id
       redirect "/jewels"
     else
-      redirect "/error"
+      erb :welcome, locals: { failed_login: true}
     end
   end
 
