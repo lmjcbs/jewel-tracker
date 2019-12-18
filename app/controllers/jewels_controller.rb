@@ -16,9 +16,7 @@ class JewelsController < Sinatra::Base
   get "/jewels/new" do
     logged_in? ? (erb :new) : (erb :error)
   end
-  ###
-  ###
-  #refactor to not set each attribute inidividually
+
   post "/jewels" do
     @jewel = Jewel.create(
       name: params[:name],
@@ -33,38 +31,30 @@ class JewelsController < Sinatra::Base
 
   #show
   get "/jewels/:id" do
-    @jewel = Jewel.find_by_id(params[:id])
-    @pos = Jewel.where(user_id: session[:user_id]).index(@jewel) + 1
-    logged_in? ? (erb :show) : (erb :error)
+    logged_in? ? (erb :show, locals: { pos: current_user.jewels.index(current_jewel) + 1, jewel: current_jewel}) : (erb :error)
   end
 
   ###
   ### Validate that the the jewel / user actually has attributes before submitting.
   #edit
   get "/jewels/:id/edit" do
-    ###
-    ###
-    #add protection to ensure only user who created jewel can edit
-    @jewel = Jewel.find_by_id(params[:id])
-    logged_in? ? (erb :edit) : (erb :error)
+    logged_in? && current_user.id == current_jewel.user_id ? (erb :edit, locals: { jewel: current_jewel}) : (erb :error)
   end
 
   patch "/jewels/:id" do
-    @jewel = Jewel.find_by_id(params[:id])
-    @jewel.update(
+    current_jewel.update(
       name: params[:name],
       weight: params[:weight],
       colour: params[:colour],
       location_found: params[:location_found],
       value: params[:value]
     )
-    redirect to "/jewels/#{@jewel.id}"
+    redirect to "/jewels/#{current_jewel.id}"
   end
 
   #delete
   delete "/jewels/:id" do
-    @jewel = Jewel.find_by_id(params[:id])
-    @jewel.delete
+    current_jewel.delete
     redirect to '/jewels'
   end
 
@@ -75,6 +65,10 @@ class JewelsController < Sinatra::Base
 
     def current_user
       User.find_by_id(session[:user_id])
+    end
+
+    def current_jewel
+      Jewel.find_by_id(params[:id])
     end
   end
 
