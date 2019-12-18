@@ -1,17 +1,19 @@
 <form method="get" action="/jewels">
   <input type="submit" value="Home">
 </form>
-<h2> Jewel entry #<%= @jewel.id %> </h2>
-<h3> Name: <%= @jewel.name %> </h3>
-<h3> Weight (grams): <%= @jewel.weight %> </h3>
-<h3> Colour: <%= @jewel.colour %> </h3>
-<h3> Location Found: <%= @jewel.location_found %> </h3>
-<h3> Value: £<%= @jewel.value %> </h3>
+<div class="jewel-container">
+  <h2> Jewel entry #<%= @jewel.id %> </h2>
+  <h3> Name: <span><%= @jewel.name %></span> </h3>
+  <h3> Weight (grams): <span><%= @jewel.weight %></span> </h3>
+  <h3> Colour: <span><%= @jewel.colour %></span> </h3>
+  <h3> Location Found: <span><%= @jewel.location_found %></span> </h3>
+  <h3> Value: <span>£<%= @jewel.value %></span> </h3>
+</div>
 <br>
 <form method="get" action="/jewels/<%= @jewel.id %>/edit">
   <input type="submit" value="Edit entry">
 </form>
 <form method="post" action="/jewels/<%= @jewel.id %>">
   <input type="hidden" id="hidden" name="_method" value="DELETE">
-  <input type="submit" value="Delete this Jewel">
+  <input type="submit" value="Delete entry">
 </form>

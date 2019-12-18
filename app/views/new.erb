@@ -1,15 +1,15 @@
 <h2>Add a new jewel to your collection</h2>
 
 <form method="post" action="/jewels">
-  <label for="type">Type: </label>
-  <input type="text" id="type" name="type"><br />
-  <label for="weight">Weight: </label>
-  <input type="text" id="weight" name="weight"><br />
+  <label for="name">Name: </label>
+  <input type="text" id="name" name="name" aria-describedby="name-format" required aria-required=”true” pattern="^[^0-9()]+$"><br />
+  <label for="weight">Weight (grams): </label>
+  <input type="text" id="weight" name="weight" aria-describedby="name-format" required aria-required=”true” pattern="^[0-9]{1,9}$"><br />
   <label for="colour">Colour: </label>
-  <input type="text" id="colour" name="colour"><br />
+  <input type="text" id="colour" name="colour" aria-describedby="name-format" required aria-required=”true” pattern="^[^0-9()]+$"><br />
   <label for="location_found">Location Found: </label>
-  <input type="text" id="location_found" name="location_found"><br />
-  <label for="value">Value: </label>
-  <input type="text" id="value" name="value"><br />
+  <input type="text" id="location_found" name="location_found" aria-describedby="name-format" required aria-required=”true” pattern="^[^0-9()]+$"><br />
+  <label for="value">Value (£): </label>
+  <input type="text" id="value" name="value" aria-describedby="name-format" required aria-required=”true” pattern="^[0-9]{1,9}$"><br />
   <input type="submit" value="Add Jewel">
 </form>
