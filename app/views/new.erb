@@ -2,14 +2,24 @@
 
 <form method="post" action="/jewels">
   <label for="name">Name: </label>
-  <input type="text" id="name" name="name" aria-describedby="name-format" required aria-required=”true” pattern="^[^0-9()]+$"><br />
+  <input type="text" id="name" name="name" required pattern="^[^0-9()]+$"
+  oninvalid="this.setCustomValidity('Must only contain characters.')"
+  oninput="setCustomValidity('')"><br />
   <label for="weight">Weight (grams): </label>
-  <input type="text" id="weight" name="weight" aria-describedby="name-format" required aria-required=”true” pattern="^[0-9]{1,9}$"><br />
+  <input type="text" id="weight" name="weight" required pattern="^[0-9]{1,9}$"
+  oninvalid="this.setCustomValidity('Must be a number.')"
+  oninput="setCustomValidity('')"><br />
   <label for="colour">Colour: </label>
-  <input type="text" id="colour" name="colour" aria-describedby="name-format" required aria-required=”true” pattern="^[^0-9()]+$"><br />
+  <input type="text" id="colour" name="colour" required pattern="^[^0-9()]+$"
+  oninvalid="this.setCustomValidity('Must only contain characters.')"
+  oninput="setCustomValidity('')"><br />
   <label for="location_found">Location Found: </label>
-  <input type="text" id="location_found" name="location_found" aria-describedby="name-format" required aria-required=”true” pattern="^[^0-9()]+$"><br />
+  <input type="text" id="location_found" name="location_found" required pattern="^[^0-9()]+$"
+  oninvalid="this.setCustomValidity('Must only contain characters.')"
+  oninput="setCustomValidity('')"><br />
   <label for="value">Value (£): </label>
-  <input type="text" id="value" name="value" aria-describedby="name-format" required aria-required=”true” pattern="^[0-9]{1,9}$"><br />
+  <input type="text" id="value" name="value" required pattern="^[0-9]{1,9}$"
+  oninvalid="this.setCustomValidity('Must be a number.')"
+  oninput="setCustomValidity('')"><br />
   <input type="submit" value="Add Jewel">
 </form>

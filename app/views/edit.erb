@@ -3,14 +3,24 @@
 <form method="post" action="/jewels/<%= @jewel.id %>">
   <input type="hidden" id="hidden" name="_method" value="patch">
   <label for="name">Name: </label>
-  <input type="text" id="name" name="name" value="<%= @jewel.name %>"><br />
+  <input type="text" id="name" name="name" value="<%= @jewel.name %>" required pattern="^[^0-9()]+$"
+  oninvalid="this.setCustomValidity('Must only contain characters.')"
+  oninput="setCustomValidity('')"><br />
   <label for="weight">Weight (grams): </label>
-  <input type="text" id="weight" name="weight" value="<%= @jewel.weight %>"><br />
+  <input type="text" id="weight" name="weight" value="<%= @jewel.weight %>" required pattern="^[0-9]{1,9}$"
+  oninvalid="this.setCustomValidity('Must be a number.')"
+  oninput="setCustomValidity('')"><br />
   <label for="colour">Colour: </label>
-  <input type="text" id="colour" name="colour" value="<%= @jewel.colour %>"><br />
+  <input type="text" id="colour" name="colour" value="<%= @jewel.colour %>" required pattern="^[^0-9()]+$"
+  oninvalid="this.setCustomValidity('Must only contain characters.')"
+  oninput="setCustomValidity('')"><br />
   <label for="location_found">Location Found: </label>
-  <input type="text" id="location_found" name="location_found" value="<%= @jewel.location_found %>"><br />
+  <input type="text" id="location_found" name="location_found" value="<%= @jewel.location_found %>" required pattern="^[^0-9()]+$"
+  oninvalid="this.setCustomValidity('Must only contain characters.')"
+  oninput="setCustomValidity('')"><br />
   <label for="value">Value (£): </label>
-  <input type="text" id="value" name="value" value="<%= @jewel.value %>"><br />
+  <input type="text" id="value" name="value" value="<%= @jewel.value %>" required pattern="^[0-9]{1,9}$"
+  oninvalid="this.setCustomValidity('Must be a number.')"
+  oninput="setCustomValidity('')"><br />
   <input type="submit" value="Save Changes">
 </form>
