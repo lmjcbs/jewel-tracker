@@ -1,3 +1,5 @@
+require 'pry'
+
 class JewelsController < Sinatra::Base
 
   configure do
@@ -10,15 +12,17 @@ class JewelsController < Sinatra::Base
   #index
   get "/jewels" do
     @session = session
-    @jewels = Jewel.where(user_id: session[:user_id])
-    logged_in?(session) ? (erb :jewels) : (erb :error)
+    @jewels = current_user.jewels
+    logged_in? ? (erb :jewels) : (erb :error)
   end
 
   #new
   get "/jewels/new" do
-    logged_in?(session) ? (erb :new) : (erb :error)
+    logged_in? ? (erb :new) : (erb :error)
   end
-
+  ###
+  ###
+  #refactor to not set each attribute inidividually
   post "/jewels" do
     @jewel = Jewel.create(
       name: params[:name],
@@ -35,13 +39,18 @@ class JewelsController < Sinatra::Base
   get "/jewels/:id" do
     @jewel = Jewel.find_by_id(params[:id])
     @pos = Jewel.where(user_id: session[:user_id]).index(@jewel) + 1
-    logged_in?(session) ? (erb :show) : (erb :error)
+    logged_in? ? (erb :show) : (erb :error)
   end
 
+  ###
+  ### Validate that the the jewel / user actually has attributes before submitting.
   #edit
   get "/jewels/:id/edit" do
+    ###
+    ###
+    #add protection to ensure only user who created jewel can edit
     @jewel = Jewel.find_by_id(params[:id])
-    logged_in?(session) ? (erb :edit) : (erb :error)
+    logged_in? ? (erb :edit) : (erb :error)
   end
 
   patch "/jewels/:id" do
@@ -63,11 +72,11 @@ class JewelsController < Sinatra::Base
   end
 
   helpers do
-    def logged_in?(session_hash)
+    def logged_in?
       !!session_hash[:user_id]
     end
 
-    def current_user(session_hash)
+    def current_user
       User.find_by(id: session_hash[:user_id])
     end
   end
