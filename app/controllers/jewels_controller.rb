@@ -34,6 +34,7 @@ class JewelsController < Sinatra::Base
   #show
   get "/jewels/:id" do
     @jewel = Jewel.find_by_id(params[:id])
+    @pos = Jewel.where(user_id: session[:user_id]).index(@jewel) + 1
     logged_in?(session) ? (erb :show) : (erb :error)
   end
 
