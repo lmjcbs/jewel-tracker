@@ -18,38 +18,27 @@ class JewelsController < Sinatra::Base
   end
 
   post "/jewels" do
-    @jewel = Jewel.create(
-      name: params[:name],
-      weight: params[:weight],
-      colour: params[:colour],
-      location_found: params[:location_found],
-      value: params[:value],
-      user_id: session[:user_id]
-    )
+    jewel = Jewel.create(params.merge(user_id: current_user.id))
     redirect to "/jewels/#{@jewel.id}"
   end
 
   #show
   get "/jewels/:id" do
-    logged_in? ? (erb :show, locals: { pos: current_user.jewels.index(current_jewel) + 1, jewel: current_jewel}) : (erb :error)
+    logged_in? ? (erb :show, locals: { pos: current_user.jewels.index(current_jewel) + 1 }) : (erb :error)
   end
 
-  ###
-  ### Validate that the the jewel / user actually has attributes before submitting.
   #edit
   get "/jewels/:id/edit" do
-    logged_in? && current_user.id == current_jewel.user_id ? (erb :edit, locals: { jewel: current_jewel}) : (erb :error)
+    logged_in? && current_user.id == current_jewel.user_id ? (erb :edit) : (erb :error)
   end
 
   patch "/jewels/:id" do
-    current_jewel.update(
-      name: params[:name],
-      weight: params[:weight],
-      colour: params[:colour],
-      location_found: params[:location_found],
-      value: params[:value]
-    )
-    redirect to "/jewels/#{current_jewel.id}"
+    jewel = Jewel.new(params.merge(id: current_jewel.id, user_id: current_user.id).except(:_method))
+    if current_jewel.update(params.except(:_method))
+      redirect to "/jewels/#{current_jewel.id}"
+    else
+      erb :edit, locals: { current_jewel: jewel }
+    end
   end
 
   #delete
