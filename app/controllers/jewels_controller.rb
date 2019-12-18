@@ -1,5 +1,3 @@
-require 'pry'
-
 class JewelsController < Sinatra::Base
 
   configure do
@@ -11,9 +9,7 @@ class JewelsController < Sinatra::Base
 
   #index
   get "/jewels" do
-    @session = session
-    @jewels = current_user.jewels
-    logged_in? ? (erb :jewels) : (erb :error)
+    logged_in? ? (erb :jewels, locals: { jewels: current_user.jewels }) : (erb :error)
   end
 
   #new
@@ -55,12 +51,13 @@ class JewelsController < Sinatra::Base
 
   patch "/jewels/:id" do
     @jewel = Jewel.find_by_id(params[:id])
-    @jewel.name = params[:name]
-    @jewel.weight = params[:weight]
-    @jewel.colour = params[:colour]
-    @jewel.location_found = params[:location_found]
-    @jewel.value = params[:value]
-    @jewel.save
+    @jewel.update(
+      name: params[:name],
+      weight: params[:weight],
+      colour: params[:colour],
+      location_found: params[:location_found],
+      value: params[:value]
+    )
     redirect to "/jewels/#{@jewel.id}"
   end
 
@@ -73,11 +70,11 @@ class JewelsController < Sinatra::Base
 
   helpers do
     def logged_in?
-      !!session_hash[:user_id]
+      !!session[:user_id]
     end
 
     def current_user
-      User.find_by(id: session_hash[:user_id])
+      User.find_by_id(session[:user_id])
     end
   end
 
