@@ -11,16 +11,12 @@ class JewelsController < Sinatra::Base
   get "/jewels" do
     @session = session
     @jewels = Jewel.where(user_id: session[:user_id])
-    if logged_in?(session)
-      erb :jewels
-    else
-      erb :error
-    end
+    logged_in?(session) ? (erb :jewels) : (erb :error)
   end
 
   #new
   get "/jewels/new" do
-    erb :new
+    logged_in?(session) ? (erb :new) : (erb :error)
   end
 
   post "/jewels" do
@@ -38,13 +34,13 @@ class JewelsController < Sinatra::Base
   #show
   get "/jewels/:id" do
     @jewel = Jewel.find_by_id(params[:id])
-    erb :show
+    logged_in?(session) ? (erb :show) : (erb :error)
   end
 
   #edit
   get "/jewels/:id/edit" do
     @jewel = Jewel.find_by_id(params[:id])
-    erb :edit
+    logged_in?(session) ? (erb :edit) : (erb :error)
   end
 
   patch "/jewels/:id" do
