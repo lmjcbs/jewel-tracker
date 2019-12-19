@@ -1,26 +1,47 @@
 <h2> Edit the details below </h2>
 
-<form method="post" action="/jewels/<%= @jewel.id %>">
+<form method="post" action="/jewels/<%= jewel.id %>">
   <input type="hidden" id="hidden" name="_method" value="patch">
-  <label for="name">Name: </label>
-  <input type="text" id="name" name="name" value="<%= @jewel.name %>" required pattern="^[^0-9()]+$"
-  oninvalid="this.setCustomValidity('Must only contain characters.')"
-  oninput="setCustomValidity('')"><br />
-  <label for="weight">Weight (grams): </label>
-  <input type="text" id="weight" name="weight" value="<%= @jewel.weight %>" required pattern="^[0-9]{1,9}$"
-  oninvalid="this.setCustomValidity('Must be a number.')"
-  oninput="setCustomValidity('')"><br />
-  <label for="colour">Colour: </label>
-  <input type="text" id="colour" name="colour" value="<%= @jewel.colour %>" required pattern="^[^0-9()]+$"
-  oninvalid="this.setCustomValidity('Must only contain characters.')"
-  oninput="setCustomValidity('')"><br />
-  <label for="location_found">Location Found: </label>
-  <input type="text" id="location_found" name="location_found" value="<%= @jewel.location_found %>" required pattern="^[^0-9()]+$"
-  oninvalid="this.setCustomValidity('Must only contain characters.')"
-  oninput="setCustomValidity('')"><br />
-  <label for="value">Value (£): </label>
-  <input type="text" id="value" name="value" value="<%= @jewel.value %>" required pattern="^[0-9]{1,9}$"
-  oninvalid="this.setCustomValidity('Must be a number.')"
-  oninput="setCustomValidity('')"><br />
+
+  <div class="form-group<%= ' has-error' if jewel.errors.include?(:name) %>">
+    <label for="name" class="control-label">Name: </label>
+    <input type="text" id="name" name="name" value="<%= jewel.name %>" class="form-control">
+    <% jewel.errors.full_messages_for(:name).each do |message| %>
+      <span class="help-block"><%= message %></span><br>
+    <% end %>
+  </div>
+
+  <div class="form-group<%= ' has-error' if jewel.errors.include?(:weight) %>">
+    <label for="weight" class="control-label">Weight (grams): </label>
+    <input type="text" id="weight" name="weight" value="<%= jewel.weight %>" class="form-control">
+    <% jewel.errors.full_messages_for(:weight).each do |message| %>
+      <span class="help-block"><%= message %></span><br>
+    <% end %>
+  </div>
+
+  <div class="form-group<%= ' has-error' if jewel.errors.include?(:colour) %>">
+    <label for="colour" class="control-label">Colour: </label>
+    <input type="text" id="colour" name="colour" value="<%= jewel.colour %>" class="form-control">
+    <% jewel.errors.full_messages_for(:colour).each do |message| %>
+      <span class="help-block"><%= message %></span><br>
+    <% end %>
+  </div>
+
+  <div class="form-group<%= ' has-error' if jewel.errors.include?(:location_found) %>">
+    <label for="location_found" class="control-label">Location Found: </label>
+    <input type="text" id="location_found" name="location_found" value="<%= jewel.location_found %>" class="form-control">
+    <% jewel.errors.full_messages_for(:location_found).each do |message| %>
+      <span class="help-block"><%= message %></span><br>
+    <% end %>
+  </div>
+
+  <div class="form-group<%= ' has-error' if jewel.errors.include?(:location_found) %>"> 
+    <label for="value" class="control-label">Value (£): </label>
+    <input type="text" id="value" name="value" value="<%= jewel.value %>" class="form-control">
+    <% jewel.errors.full_messages_for(:value).each do |message| %>
+      <span class="help-block"><%= message %></span><br>
+    <% end %>
+  </div>
+
   <input type="submit" value="Save Changes">
 </form>
