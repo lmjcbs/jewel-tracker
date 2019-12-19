@@ -8,7 +8,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    erb :welcome, locals: { failed_login: nil}
+    erb :welcome, locals: { failed_login: nil }
   end
 
   get "/error" do
@@ -25,7 +25,7 @@ class ApplicationController < Sinatra::Base
       session[:user_id] = user.id
       redirect "/jewels"
     else
-      erb :welcome, locals: { failed_login: true}
+      erb :welcome, locals: { failed_login: true }
     end
   end
 
@@ -42,6 +42,20 @@ class ApplicationController < Sinatra::Base
   get "/logout" do
     session.clear
     redirect "/"
+  end
+
+  helpers do
+    def logged_in?
+      !!session[:user_id]
+    end
+
+    def current_user
+      User.find_by_id(session[:user_id])
+    end
+
+    def current_jewel
+      Jewel.find_by_id(params[:id])
+    end
   end
 
 end
