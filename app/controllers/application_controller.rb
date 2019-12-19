@@ -56,6 +56,10 @@ class ApplicationController < Sinatra::Base
     def current_jewel
       Jewel.find_by_id(params[:id])
     end
+
+    def user_created_jewel?
+      current_user.jewels.include?(current_jewel)
+    end
   end
 
 end
