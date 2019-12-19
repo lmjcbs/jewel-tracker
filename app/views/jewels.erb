@@ -1,19 +1,16 @@
 <div style="margin-bottom:25px;" >
   <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2F3.bp.blogspot.com%2F-Vgl5MfM-9uk%2FU4RwLFU51zI%2FAAAAAAAAAGY%2FYLKQ1Hst0cE%2Fs1600%2Fnavaratna-1024x1015.png&f=1&nofb=1" height="100" weidth="100">
-  <h3>Welcome <%= current_user(@session).username %></h5>
+  <h3>Welcome <%= current_user.username %></h5>
   <a  href="/logout">Logout</a>
 </div>
 <h3>You're now viewing your jewel collection.</h3>
-<% if @jewels.size == 1 %>
-  <h3>You have a total of <%= @jewels.size %> jewel collected.</h3>
-<% elsif @jewels.size > 1 %>
-  <h3>You have a total of <%= @jewels.size %> jewels collected.</h3>
-<% end %>
+<h3>You have a total of <%= jewels.size %> jewel<%='s' if (jewels.size > 1)%> collected.</h3>
+
 <form method="get" action="/jewels/new">
   <input type="submit" value="Add new entry">
 </form>
 
-<% if @jewels.size == 0 %>
+<% if jewels.size == 0 %>
 
   <div class="jewel-container">
     <p> You currently have no jewels collected </p>
@@ -21,7 +18,7 @@
 
 <% else %>
 
-  <% @jewels.each do |jewel| %>
+  <% jewels.each do |jewel| %>
     <div class="jewel-container">
       <h4> Name: <span><%= jewel.name %></span> </h4>
       <h4> Location Found: <span><%= jewel.location_found %></span> </h4>
