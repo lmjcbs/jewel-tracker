@@ -1,4 +1,4 @@
-class JewelsController < Sinatra::Base
+class JewelsController < ApplicationController
 
   configure do
     set :public_folder, 'public'
@@ -14,12 +14,16 @@ class JewelsController < Sinatra::Base
 
   #new
   get "/jewels/new" do
-    logged_in? ? (erb :new) : (erb :error)
+    logged_in? ? (erb :new, locals: { jewel: Jewel.new }) : (erb :error)
   end
 
   post "/jewels" do
     jewel = Jewel.create(params.merge(user_id: current_user.id))
-    redirect to "/jewels/#{@jewel.id}"
+    if jewel.valid?
+      redirect to "/jewels/#{jewel.id}"
+    else
+      erb :new, locals: { jewel: jewel }
+    end
   end
 
   #show
@@ -29,15 +33,16 @@ class JewelsController < Sinatra::Base
 
   #edit
   get "/jewels/:id/edit" do
-    logged_in? && current_user.id == current_jewel.user_id ? (erb :edit) : (erb :error)
+    logged_in? && current_user.id == current_jewel.user_id ? (erb :edit, locals: { jewel: current_jewel }) : (erb :error)
   end
 
   patch "/jewels/:id" do
     jewel = Jewel.new(params.merge(id: current_jewel.id, user_id: current_user.id).except(:_method))
-    if current_jewel.update(params.except(:_method))
+    if jewel.valid?
+      current_jewel.update(params.except(:_method))
       redirect to "/jewels/#{current_jewel.id}"
     else
-      erb :edit, locals: { current_jewel: jewel }
+      erb :edit, locals: { jewel: jewel }
     end
   end
 
@@ -45,20 +50,6 @@ class JewelsController < Sinatra::Base
   delete "/jewels/:id" do
     current_jewel.delete
     redirect to '/jewels'
-  end
-
-  helpers do
-    def logged_in?
-      !!session[:user_id]
-    end
-
-    def current_user
-      User.find_by_id(session[:user_id])
-    end
-
-    def current_jewel
-      Jewel.find_by_id(params[:id])
-    end
   end
 
 end
