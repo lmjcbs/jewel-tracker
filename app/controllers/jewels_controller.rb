@@ -28,12 +28,12 @@ class JewelsController < ApplicationController
 
   #show
   get "/jewels/:id" do
-    logged_in? ? (erb :show, locals: { pos: current_user.jewels.index(current_jewel) + 1 }) : (erb :error)
+    logged_in? && user_created_jewel? ? (erb :show, locals: { pos: current_user.jewels.index(current_jewel) + 1 }) : (erb :error)
   end
 
   #edit
   get "/jewels/:id/edit" do
-    logged_in? && current_user.id == current_jewel.user_id ? (erb :edit, locals: { jewel: current_jewel }) : (erb :error)
+    logged_in? && user_created_jewel? ? (erb :edit, locals: { jewel: current_jewel }) : (erb :error)
   end
 
   patch "/jewels/:id" do
@@ -48,7 +48,7 @@ class JewelsController < ApplicationController
 
   #delete
   delete "/jewels/:id" do
-    current_jewel.delete
+    current_jewel.delete if user_created_jewel?
     redirect to '/jewels'
   end
 
